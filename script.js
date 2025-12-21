@@ -14,34 +14,28 @@ function divide(a, b) {
     return a / b;
 }
 
-function operate(operator, a, b) {
-    switch(operator) {
-        case adding:
-            add(a, b);
-        case subtracting:
-            subtract(a, b);
-        case multiplying:
-            multiply(a, b);
-        case dividing:
-            divide(a, b);
+function operate(sign, a, b) {
+    switch(sign) {
+        case "+":
+            return add(a, b);
+        case "-":
+            return subtract(a, b);
+        case "x":
+            return multiply(a, b);
+        case "/":
+            return divide(a, b);
     }
 }
 
 
 let firstNumber;
 let secondNumber;
-let operator;
+let sign;
 
 const numbers = document.querySelectorAll(".number");
-
-const adding = document.querySelector(".adding");
-const subtracting = document.querySelector(".subtracting");
-const multiplying = document.querySelector(".multiplying");
-const dividing = document.querySelector(".dividing");
-
+const operators = document.querySelectorAll(".operator");
 const compute = document.querySelector(".compute");
 const clear = document.querySelector(".clear");
-
 const output = document.querySelector("output")
 
 function displayNumbers() {
@@ -51,10 +45,31 @@ function displayNumbers() {
         })
     })
 }
+function operatorButtons() {
+    operators.forEach((operator) => {
+        operator.addEventListener("click", (e) => {
+            sign = operator.textContent;
+            firstNumber = +output.textContent;
+            output.textContent = "";
+        })
+    })
+}
+
+function computeButton() {
+    compute.addEventListener("click", (e) => {
+        secondNumber = +output.textContent;
+        output.textContent = operate(sign, firstNumber, secondNumber)
+        console.log(firstNumber);
+        console.log(secondNumber);
+        console.log(sign);
+        console.log(sign === "+")
+    })
+}
 
 
 displayNumbers()
-
+operatorButtons()
+computeButton()
 
 
 
