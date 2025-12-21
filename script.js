@@ -26,3 +26,11 @@ function operate(operator, a, b) {
             divide(a, b);
     }
 }
+
+
+let firstNumber = ;
+let secondNumber = ;
+let operator = ;
+
+
+
