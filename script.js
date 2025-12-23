@@ -106,7 +106,14 @@ function computeButton() {
     })
 }
 
-
+function clearButton() {
+    clear.addEventListener("click", (e) => {
+        firstNumber = null;
+        secondNumber = null;
+        sign = null;
+        output.textContent = 0;
+    })
+}
 
 
 displayNumbers()
