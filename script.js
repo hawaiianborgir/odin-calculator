@@ -91,9 +91,13 @@ function computeButton() {
     compute.addEventListener("click", (e) => {
         console.log("==entering computeButton()==")
 
-        secondNumber = +output.textContent;
-        output.textContent = operate(sign, firstNumber, secondNumber);
-        sign = null;
+        if (firstNumber == null) {
+            alert("Press enter the number first")
+        } else {
+            secondNumber = +output.textContent;
+            output.textContent = operate(sign, firstNumber, secondNumber);
+            sign = null;
+        }
 
         console.log(`computeFirst: ${firstNumber}`);
         console.log(`computeSecond: ${secondNumber}`);
@@ -101,6 +105,8 @@ function computeButton() {
         console.log(`Output: ${output.textContent}`)
     })
 }
+
+
 
 
 displayNumbers()
