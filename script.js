@@ -35,6 +35,7 @@ function operate(sign, a, b) {
 let firstNumber;
 let secondNumber;
 let sign;
+let consecutive = 0;
 
 const numbers = document.querySelectorAll(".number");
 const operators = document.querySelectorAll(".operator");
@@ -58,23 +59,26 @@ function operatorButtons() {
         operator.addEventListener("click", (e) => {
             if (sign != null) {
                 console.log("==entering operatorButtons() in IF condition==")
+                if (consecutive == 0) {
+                    secondNumber = +output.textContent;
+                    output.textContent = operate(sign, firstNumber, secondNumber);
+                    
+                    console.log(`First: ${firstNumber}`);
+                    console.log(`Second: ${secondNumber}`);
+                    console.log(`Sign: ${sign}`);
+                    console.log(`Output: ${output.textContent}`)
+                    console.log("==operatorButtons() IF computing...==")
 
-                secondNumber = +output.textContent;
-                output.textContent = operate(sign, firstNumber, secondNumber);
+                    firstNumber = +output.textContent;
+                    secondNumber = null;
+                    sign = operator.textContent
+
+                    console.log(`First: ${firstNumber}`);
+                    console.log(`Second: ${secondNumber}`);
+                    console.log(`Sign: ${sign}`);
+                    console.log(`Output: ${output.textContent}`)
+                }
                 
-                console.log(`First: ${firstNumber}`);
-                console.log(`Second: ${secondNumber}`);
-                console.log(`Sign: ${sign}`);
-                console.log(`Output: ${output.textContent}`)
-                console.log("==operatorButtons() IF computing...==")
-
-                firstNumber = +output.textContent;
-                sign = operator.textContent
-
-                console.log(`First: ${firstNumber}`);
-                console.log(`Second: ${secondNumber}`);
-                console.log(`Sign: ${sign}`);
-                console.log(`Output: ${output.textContent}`)
                 
             } else {
                 console.log("==entering operatorButtons() in ELSE condition==")
@@ -126,11 +130,37 @@ function clearButton() {
     })
 }
 
+function consecutiveOperator() {
+    operators.forEach((operator) => {
+        operator.addEventListener("click", (e) => {
+            if (consecutive == 0) {
+                consecutive = 1
+                console.log(`consecutive UP: ${consecutive}`)
+            } else {
+                // consecutive == 1
+                alert("Please enter second number first");
+                console.log("consecutive alert")
+            };
+        })
+    })
+
+    numbers.forEach((number) => {
+        number.addEventListener("click", (e) => {
+            if (consecutive == 1) {
+                consecutive = 0
+                console.log(`consecutive DOWN: ${consecutive}`)
+            }
+        })
+    })
+
+}
+
 
 displayNumbers()
 operatorButtons()
 computeButton()
 clearButton()
+consecutiveOperator()
 
 //to do: operator -> equal error
 
