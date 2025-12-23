@@ -11,7 +11,11 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return a / b;
+    if (b == 0) {
+        alert("Error: Division by 0");
+    } else {
+        return a / b;
+    }
 }
 
 function operate(sign, a, b) {
@@ -108,10 +112,17 @@ function computeButton() {
 
 function clearButton() {
     clear.addEventListener("click", (e) => {
+        console.log("==entering clearButton()==")
+
         firstNumber = null;
         secondNumber = null;
         sign = null;
         output.textContent = 0;
+
+        console.log(`computeFirst: ${firstNumber}`);
+        console.log(`computeSecond: ${secondNumber}`);
+        console.log(`computeSign: ${sign}`);
+        console.log(`Output: ${output.textContent}`)
     })
 }
 
@@ -119,6 +130,7 @@ function clearButton() {
 displayNumbers()
 operatorButtons()
 computeButton()
+clearButton()
 
 //to do: operator -> equal error
 
