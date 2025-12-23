@@ -41,7 +41,9 @@ const output = document.querySelector("output")
 function displayNumbers() {
     numbers.forEach((number) => {
         number.addEventListener("click", (e) => {
-            if (firstNumber === +output.textContent) {
+            if (output.textContent == 0) {
+                output.textContent = number.textContent;
+            } else if (firstNumber === +output.textContent) {
                 output.textContent = number.textContent;
             } else {
                 output.textContent += `${number.textContent}`;
