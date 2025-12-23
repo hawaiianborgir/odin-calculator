@@ -41,28 +41,64 @@ const output = document.querySelector("output")
 function displayNumbers() {
     numbers.forEach((number) => {
         number.addEventListener("click", (e) => {
-            output.textContent += `${number.textContent}`;
+            if (firstNumber === +output.textContent) {
+                output.textContent = number.textContent;
+            } else {
+                output.textContent += `${number.textContent}`;
+            }
         })
     })
 }
 function operatorButtons() {
     operators.forEach((operator) => {
         operator.addEventListener("click", (e) => {
-            sign = operator.textContent;
-            firstNumber = +output.textContent;
-            output.textContent = "";
+            if (sign != null) {
+                console.log("==entering operatorButtons() in IF condition==")
+
+                secondNumber = +output.textContent;
+                output.textContent = operate(sign, firstNumber, secondNumber);
+                
+                console.log(`First: ${firstNumber}`);
+                console.log(`Second: ${secondNumber}`);
+                console.log(`Sign: ${sign}`);
+                console.log(`Output: ${output.textContent}`)
+                console.log("==operatorButtons() IF computing...==")
+
+                firstNumber = +output.textContent;
+                sign = operator.textContent
+
+                console.log(`First: ${firstNumber}`);
+                console.log(`Second: ${secondNumber}`);
+                console.log(`Sign: ${sign}`);
+                console.log(`Output: ${output.textContent}`)
+                
+            } else {
+                console.log("==entering operatorButtons() in ELSE condition==")
+
+                sign = operator.textContent;
+                firstNumber = +output.textContent;
+
+                console.log(`First: ${firstNumber}`);
+                console.log(`Second: ${secondNumber}`);
+                console.log(`Sign: ${sign}`);
+                console.log(`Output: ${output.textContent}`)
+            }
         })
     })
 }
 
 function computeButton() {
     compute.addEventListener("click", (e) => {
+        console.log("==entering computeButton()==")
+
         secondNumber = +output.textContent;
-        output.textContent = operate(sign, firstNumber, secondNumber)
-        console.log(firstNumber);
-        console.log(secondNumber);
-        console.log(sign);
-        console.log(sign === "+")
+        output.textContent = operate(sign, firstNumber, secondNumber);
+        sign = null;
+
+        console.log(`computeFirst: ${firstNumber}`);
+        console.log(`computeSecond: ${secondNumber}`);
+        console.log(`computeSign: ${sign}`);
+        console.log(`Output: ${output.textContent}`)
     })
 }
 
@@ -71,5 +107,5 @@ displayNumbers()
 operatorButtons()
 computeButton()
 
-
+//to do: operator -> equal error
 
