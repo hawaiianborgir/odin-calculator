@@ -35,7 +35,8 @@ function operate(sign, a, b) {
 let firstNumber;
 let secondNumber;
 let sign;
-let consecutive = 0;
+let consecutive = 0; // consecutive operator indicator
+let newDigit = 0; // if result is already displayed, it will show new number on the next number push
 
 const numbers = document.querySelectorAll(".number");
 const operators = document.querySelectorAll(".operator");
@@ -43,10 +44,20 @@ const compute = document.querySelector(".compute");
 const clear = document.querySelector(".clear");
 const output = document.querySelector("output")
 
+const isDisplayZero = output.textContent == 0;
+const isOutputSameAsFirstNumber = firstNumber === +output.textContent;
+const startNewDigit = newDigit == 1;
+
 function displayNumbers() {
     numbers.forEach((number) => {
         number.addEventListener("click", (e) => {
-            if (output.textContent == 0 || firstNumber === +output.textContent) {
+            //firstNumber === +output.textContent is to keep the display until the next group number is pushed.
+            if (
+                isDisplayZero || 
+                isOutputSameAsFirstNumber || 
+                startNewDigit
+            ) {
+                newDigit = 0;
                 output.textContent = number.textContent;
             } else {
                 output.textContent += `${number.textContent}`;
@@ -62,12 +73,13 @@ function operatorButtons() {
                 if (consecutive == 0) {
                     secondNumber = +output.textContent;
                     output.textContent = operate(sign, firstNumber, secondNumber);
+                    newDigit = 1; 
                     
                     console.log(`First: ${firstNumber}`);
                     console.log(`Second: ${secondNumber}`);
                     console.log(`Sign: ${sign}`);
-                    console.log(`Output: ${output.textContent}`)
-                    console.log("==operatorButtons() IF computing...==")
+                    console.log(`Output: ${output.textContent}`);
+                    console.log("==operatorButtons() IF computing...==");
 
                     firstNumber = +output.textContent;
                     secondNumber = null;
@@ -104,6 +116,7 @@ function computeButton() {
         } else {
             secondNumber = +output.textContent;
             output.textContent = operate(sign, firstNumber, secondNumber);
+            newDigit = 1;
             sign = null;
         }
 
@@ -163,4 +176,4 @@ clearButton()
 consecutiveOperator()
 
 //to do: operator -> equal error
-
+//to do: if output shows result clear on number
