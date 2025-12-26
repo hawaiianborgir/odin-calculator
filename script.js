@@ -157,6 +157,28 @@ function backspaceButton() {
     })
 }
 
+//Keyboard Support
+const buttons = document.querySelectorAll("button");
+
+const buttonData = []
+buttons.forEach((button) => {
+    buttonData.push(button.dataset.key)
+})
+
+function keyboardSupport() {
+    document.addEventListener("keydown", (e) => {
+        const keyValue = e.key.toLowerCase()
+        const autoClick = document.querySelector(`[data-key="${e.key.toLowerCase()}"]`).click()
+        
+        if(buttonData.includes(keyValue)) {autoClick}
+    })
+}
+
+
+
+
+
+console.log(buttonData)
 
 displayNumbers();
 operatorButtons();
@@ -165,6 +187,7 @@ clearButton();
 consecutiveOperator();
 commaButton();
 backspaceButton();
+keyboardSupport();
 
 //to do: operator -> equal error
 //to do: if output shows result clear on number
