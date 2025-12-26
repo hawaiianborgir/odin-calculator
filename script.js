@@ -45,6 +45,7 @@ const compute = document.querySelector(".compute");
 const clear = document.querySelector(".clear");
 const output = document.querySelector("output");
 const comma = document.querySelector(".comma");
+const backspace = document.querySelector(".backspace");
 
 // const isDisplayZero = output.textContent == 0;
 // const isOutputSameAsFirstNumber = firstNumber === +output.textContent;
@@ -150,13 +151,20 @@ function commaButton() {
     })
 }
 
+function backspaceButton() {
+    backspace.addEventListener("click", (e) => {
+        output.textContent = output.textContent.slice(0, -1);
+    })
+}
 
-displayNumbers()
-operatorButtons()
-computeButton()
-clearButton()
-consecutiveOperator()
-commaButton()
+
+displayNumbers();
+operatorButtons();
+computeButton();
+clearButton();
+consecutiveOperator();
+commaButton();
+backspaceButton();
 
 //to do: operator -> equal error
 //to do: if output shows result clear on number
