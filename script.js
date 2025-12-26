@@ -37,25 +37,27 @@ let secondNumber;
 let sign;
 let consecutive = 0; // consecutive operator indicator
 let newDigit = 0; // if result is already displayed, it will show new number on the next number push
+let isCommaClicked = 0;
 
 const numbers = document.querySelectorAll(".number");
 const operators = document.querySelectorAll(".operator");
 const compute = document.querySelector(".compute");
 const clear = document.querySelector(".clear");
-const output = document.querySelector("output")
+const output = document.querySelector("output");
+const comma = document.querySelector(".comma");
 
-const isDisplayZero = output.textContent == 0;
-const isOutputSameAsFirstNumber = firstNumber === +output.textContent;
-const startNewDigit = newDigit == 1;
+// const isDisplayZero = output.textContent == 0;
+// const isOutputSameAsFirstNumber = firstNumber === +output.textContent;
+// const startNewDigit = newDigit == 1;
 
 function displayNumbers() {
     numbers.forEach((number) => {
         number.addEventListener("click", (e) => {
             //firstNumber === +output.textContent is to keep the display until the next group number is pushed.
-            if (
-                isDisplayZero || 
-                isOutputSameAsFirstNumber || 
-                startNewDigit
+            if( 
+                firstNumber === +output.textContent || 
+                newDigit == 1 ||
+                (+output.textContent === 0 && isCommaClicked === 0)          
             ) {
                 newDigit = 0;
                 output.textContent = number.textContent;
@@ -65,43 +67,27 @@ function displayNumbers() {
         })
     })
 }
+
 function operatorButtons() {
     operators.forEach((operator) => {
         operator.addEventListener("click", (e) => {
             if (sign != null) {
                 console.log("==entering operatorButtons() in IF condition==")
+                //if consecutive == 1, please refer to the consecutiveOperator()
                 if (consecutive == 0) {
                     secondNumber = +output.textContent;
                     output.textContent = operate(sign, firstNumber, secondNumber);
-                    newDigit = 1; 
-                    
-                    console.log(`First: ${firstNumber}`);
-                    console.log(`Second: ${secondNumber}`);
-                    console.log(`Sign: ${sign}`);
-                    console.log(`Output: ${output.textContent}`);
-                    console.log("==operatorButtons() IF computing...==");
+                    newDigit = 1;
+                    isCommaClicked = 0; 
 
                     firstNumber = +output.textContent;
                     secondNumber = null;
                     sign = operator.textContent
-
-                    console.log(`First: ${firstNumber}`);
-                    console.log(`Second: ${secondNumber}`);
-                    console.log(`Sign: ${sign}`);
-                    console.log(`Output: ${output.textContent}`)
                 }
-                
-                
             } else {
-                console.log("==entering operatorButtons() in ELSE condition==")
-
                 sign = operator.textContent;
                 firstNumber = +output.textContent;
-
-                console.log(`First: ${firstNumber}`);
-                console.log(`Second: ${secondNumber}`);
-                console.log(`Sign: ${sign}`);
-                console.log(`Output: ${output.textContent}`)
+                isCommaClicked = 0;
             }
         })
     })
@@ -109,8 +95,6 @@ function operatorButtons() {
 
 function computeButton() {
     compute.addEventListener("click", (e) => {
-        console.log("==entering computeButton()==")
-
         if (firstNumber == null) {
             alert("Press enter the number first")
         } else {
@@ -118,28 +102,18 @@ function computeButton() {
             output.textContent = operate(sign, firstNumber, secondNumber);
             newDigit = 1;
             sign = null;
+            isCommaClicked = 0;
         }
-
-        console.log(`computeFirst: ${firstNumber}`);
-        console.log(`computeSecond: ${secondNumber}`);
-        console.log(`computeSign: ${sign}`);
-        console.log(`Output: ${output.textContent}`)
     })
 }
 
 function clearButton() {
     clear.addEventListener("click", (e) => {
-        console.log("==entering clearButton()==")
-
         firstNumber = null;
         secondNumber = null;
         sign = null;
         output.textContent = 0;
-
-        console.log(`computeFirst: ${firstNumber}`);
-        console.log(`computeSecond: ${secondNumber}`);
-        console.log(`computeSign: ${sign}`);
-        console.log(`Output: ${output.textContent}`)
+        isCommaClicked = 0;
     })
 }
 
@@ -147,12 +121,10 @@ function consecutiveOperator() {
     operators.forEach((operator) => {
         operator.addEventListener("click", (e) => {
             if (consecutive == 0) {
-                consecutive = 1
-                console.log(`consecutive UP: ${consecutive}`)
+                consecutive = 1;
             } else {
                 // consecutive == 1
                 alert("Please enter second number first");
-                console.log("consecutive alert")
             };
         })
     })
@@ -161,11 +133,21 @@ function consecutiveOperator() {
         number.addEventListener("click", (e) => {
             if (consecutive == 1) {
                 consecutive = 0
-                console.log(`consecutive DOWN: ${consecutive}`)
             }
         })
     })
+}
 
+function commaButton() {
+    comma.addEventListener("click", (e) => {
+        if(isCommaClicked === 0) {
+            output.textContent += `${comma.textContent}`
+            isCommaClicked = 1;
+        } else {
+            // if isCommaClicked == 1
+            e.preventDefault()
+        }
+    })
 }
 
 
@@ -174,6 +156,8 @@ operatorButtons()
 computeButton()
 clearButton()
 consecutiveOperator()
+commaButton()
 
 //to do: operator -> equal error
 //to do: if output shows result clear on number
+//to do: use strict equality
