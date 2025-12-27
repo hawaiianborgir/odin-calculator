@@ -165,20 +165,24 @@ buttons.forEach((button) => {
     buttonData.push(button.dataset.key)
 })
 
+function clickButton(key) {
+    const clickIt = document.querySelector(`[data-key="${key.toLowerCase()}"]`).click();
+    return clickIt;
+}
+function clickEnter() {
+    const clickIt = document.querySelector(`[data-key="="]`).click();
+    return clickIt;
+}
+
 function keyboardSupport() {
     document.addEventListener("keydown", (e) => {
-        const keyValue = e.key.toLowerCase()
-        const autoClick = document.querySelector(`[data-key="${e.key.toLowerCase()}"]`).click()
-        
-        if(buttonData.includes(keyValue)) {autoClick}
+        const keyValue = e.key.toLowerCase();
+       
+        if(buttonData.includes(keyValue)) {clickButton(keyValue)}
+        else if (keyValue === "enter") {clickEnter()}
     })
 }
 
-
-
-
-
-console.log(buttonData)
 
 displayNumbers();
 operatorButtons();
