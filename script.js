@@ -11,7 +11,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    if (b == 0) {
+    if (b === 0) {
         alert("Error: Division by 0");
     } else {
         return a / b;
@@ -32,9 +32,9 @@ function operate(sign, a, b) {
 }
 
 
-let firstNumber;
-let secondNumber;
-let sign;
+let firstNumber = null
+let secondNumber = null;
+let sign = null;
 let consecutive = 0; // consecutive operator indicator
 let newDigit = 0; // if result is already displayed, it will show new number on the next number push
 let isCommaClicked = 0;
@@ -57,7 +57,7 @@ function displayNumbers() {
             //firstNumber === +output.textContent is to keep the display until the next group number is pushed.
             if( 
                 firstNumber === +output.textContent || 
-                newDigit == 1 ||
+                newDigit === 1 ||
                 (+output.textContent === 0 && isCommaClicked === 0)          
             ) {
                 newDigit = 0;
@@ -72,10 +72,9 @@ function displayNumbers() {
 function operatorButtons() {
     operators.forEach((operator) => {
         operator.addEventListener("click", (e) => {
-            if (sign != null) {
-                console.log("==entering operatorButtons() in IF condition==")
-                //if consecutive == 1, please refer to the consecutiveOperator()
-                if (consecutive == 0) {
+            if (sign !== null) {
+                //if consecutive === 1, please refer to the consecutiveOperator()
+                if (consecutive === 0) {
                     secondNumber = +output.textContent;
                     output.textContent = operate(sign, firstNumber, secondNumber);
                     newDigit = 1;
@@ -96,7 +95,7 @@ function operatorButtons() {
 
 function computeButton() {
     compute.addEventListener("click", (e) => {
-        if (firstNumber == null) {
+        if (firstNumber === null) {
             alert("Press enter the number first")
         } else {
             secondNumber = +output.textContent;
@@ -121,7 +120,7 @@ function clearButton() {
 function consecutiveOperator() {
     operators.forEach((operator) => {
         operator.addEventListener("click", (e) => {
-            if (consecutive == 0) {
+            if (consecutive === 0) {
                 consecutive = 1;
             } else {
                 // consecutive == 1
@@ -132,7 +131,7 @@ function consecutiveOperator() {
 
     numbers.forEach((number) => {
         number.addEventListener("click", (e) => {
-            if (consecutive == 1) {
+            if (consecutive === 1) {
                 consecutive = 0
             }
         })
@@ -184,8 +183,48 @@ function keyboardSupport() {
     document.addEventListener("keydown", (e) => {
         const keyValue = e.key.toLowerCase();
        
-        if(buttonData.includes(keyValue)) {clickButton(keyValue)}
-        else if (keyValue === "enter") {clickEnter()}
+        if(buttonData.includes(keyValue)) {
+            clickButton(keyValue)
+        }
+        else if (keyValue === "enter") {
+            clickEnter()
+        }
+    })
+}
+
+// Visual Effect for Keyboard
+
+const operatorData = [];
+operators.forEach((button) => {
+    operatorData.push(button.dataset.key)
+});
+
+let activeBtn = null;
+let activeOpr = null;
+
+function keyboardVisual() {
+    
+    document.addEventListener("keydown", (e) => {
+        const keyValue = e.key.toLowerCase();
+        const isOperator = operatorData.includes(keyValue);
+
+        if(buttonData.includes(keyValue) && !isOperator) {
+            activeBtn = document.querySelector(`[data-key="${keyValue}"]`);
+            activeBtn?.classList.add('is-active');
+        } else if (isOperator) {
+            activeOpr = document.querySelector(`[data-key="${keyValue}"]`);
+            activeOpr?.classList.add("is-active");
+        }
+    })
+
+    document.addEventListener("keyup", (e) => {
+        activeBtn?.classList.remove("is-active");
+    })
+
+    numbers.forEach((number) => {
+        number.addEventListener("click", (e) => {
+            activeOpr?.classList.remove("is-active")
+        })
     })
 }
 
@@ -198,7 +237,7 @@ consecutiveOperator();
 commaButton();
 backspaceButton();
 keyboardSupport();
+keyboardVisual();
 
 //to do: operator -> equal error
-//to do: if output shows result clear on number
 //to do: use strict equality

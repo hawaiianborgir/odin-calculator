@@ -65,7 +65,7 @@ output{
     font-size: 35px;
     width: 80px;
     height: 80px;
-    margin-right: 8px;
+    margin-right: 9px;
 }
 
 /* BOTTOM */
@@ -97,7 +97,7 @@ output{
     font-size: 30px;
     width: 80px;
     height: 80px;
-    margin-right: 5px;
+    margin-right: 6px;
 }
 
 /* Visual */
@@ -157,11 +157,13 @@ button {
   transition: background 0.15s ease, transform 0.05s ease;
 }
 
-button:hover {
+button:hover,
+button.is-hover {
   background: var(--btn-hover);
 }
 
-button:active {
+button:active,
+button.is-active {
   background: var(--btn-active);
   transform: translateY(1px);
   box-shadow: inset 0 2px 4px rgba(0,0,0,0.6);
@@ -175,7 +177,9 @@ button:active {
 }
 
 .operator:hover,
-.compute:hover {
+.compute:hover,
+.operator.is-hover,
+.compute.is-hover {
   background: var(--accent-dark);
 }
 
