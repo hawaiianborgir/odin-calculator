@@ -38,6 +38,7 @@ let sign = null;
 let consecutive = 0; // consecutive operator indicator
 let newDigit = 0; // if result is already displayed, it will show new number on the next number push
 let isCommaClicked = 0;
+let defaultDisplay = 0;
 
 const numbers = document.querySelectorAll(".number");
 const operators = document.querySelectorAll(".operator");
@@ -100,6 +101,7 @@ function computeButton() {
         } else {
             secondNumber = +output.textContent;
             output.textContent = operate(sign, firstNumber, secondNumber);
+            defaultDisplay = 1;
             newDigit = 1;
             sign = null;
             isCommaClicked = 0;
@@ -116,6 +118,8 @@ function clearButton() {
         isCommaClicked = 0;
     })
 }
+
+
 
 function consecutiveOperator() {
     operators.forEach((operator) => {
@@ -170,6 +174,8 @@ buttons.forEach((button) => {
     buttonData.push(button.dataset.key)
 })
 
+console.log(buttonData)
+
 function clickButton(key) {
     const clickIt = document.querySelector(`[data-key="${key.toLowerCase()}"]`).click();
     return clickIt;
@@ -214,6 +220,9 @@ function keyboardVisual() {
         } else if (isOperator) {
             activeOpr = document.querySelector(`[data-key="${keyValue}"]`);
             activeOpr?.classList.add("is-active");
+        } else if (keyValue === "enter") {
+            activeBtn = document.querySelector(`[data-key="="]`);
+            activeBtn?.classList.add('is-active');
         }
     })
 
@@ -239,5 +248,5 @@ backspaceButton();
 keyboardSupport();
 keyboardVisual();
 
-//to do: operator -> equal error
-//to do: use strict equality
+//to do: operator -> equal = error
+//to do: equal after result will delete all display
