@@ -153,7 +153,13 @@ function commaButton() {
 
 function backspaceButton() {
     backspace.addEventListener("click", (e) => {
+        if(output.textContent.length === 1) {
+            output.textContent = 0;
+        } else if(+output.textContent === 0 ) {
+            e.preventDefault();
+        } else {
         output.textContent = output.textContent.slice(0, -1);
+        }
     })
 }
 

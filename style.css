@@ -20,15 +20,12 @@ html {
 .top-wrapper{
     display: flex;
     flex-grow: 1;
-    /* border: 1px solid green; */
     justify-content: center;
     align-items: center;
 }
 
 output{
-    /* border: 3px solid orange; */
     text-align: right;
-    font-size: 65px;
     flex-grow: 1;
     margin: 0 10px 0 10px;
 }
@@ -37,11 +34,9 @@ output{
 .mid-wrapper{
     flex-grow: 1;
     display: flex;
-    /* border: 1px solid green; */
 }
 
 .number-container{
-    /* border: 1px solid purple; */
     flex: 3;
     display: flex;
     justify-content: center;
@@ -153,7 +148,6 @@ button {
   color: var(--text-main);
   border: 1px solid var(--border-soft);
   border-radius: 8px;
-  font-size: 1.2rem;
   cursor: pointer;
 
   box-shadow:
