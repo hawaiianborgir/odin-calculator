@@ -1,37 +1,3 @@
-function add(a, b) {
-    return a + b;
-}
-
-function subtract(a, b) {
-    return a - b;
-}
-
-function multiply(a, b) {
-    return a * b;
-}
-
-function divide(a, b) {
-    if (b === 0) {
-        alert("Error: Division by 0");
-    } else {
-        return a / b;
-    }
-}
-
-function operate(sign, a, b) {
-    switch(sign) {
-        case "+":
-            return add(a, b);
-        case "-":
-            return subtract(a, b);
-        case "x":
-            return multiply(a, b);
-        case "/":
-            return divide(a, b);
-    }
-}
-
-
 let firstNumber = null
 let secondNumber = null;
 let sign = null;
@@ -48,9 +14,42 @@ const output = document.querySelector("output");
 const comma = document.querySelector(".comma");
 const backspace = document.querySelector(".backspace");
 
-// const isDisplayZero = output.textContent == 0;
-// const isOutputSameAsFirstNumber = firstNumber === +output.textContent;
-// const startNewDigit = newDigit == 1;
+
+function add(a, b) {
+    return limitDecimals(a + b);
+}
+
+function subtract(a, b) {
+    return limitDecimals(a - b);
+}
+
+function multiply(a, b) {
+    return limitDecimals(a * b);
+}
+
+function divide(a, b) {
+    if (b === 0) {
+        alert("Error: Division by 0");
+        resetCalculator()
+        clearActiveBtn()
+        return 0
+    } else {
+        return limitDecimals(a/b)
+    }
+}
+
+function operate(sign, a, b) {
+    switch(sign) {
+        case "+":
+            return add(a, b);
+        case "-":
+            return subtract(a, b);
+        case "x":
+            return multiply(a, b);
+        case "/":
+            return divide(a, b);
+    }
+}
 
 function displayNumbers() {
     numbers.forEach((number) => {
@@ -105,6 +104,7 @@ function computeButton() {
             newDigit = 1;
             sign = null;
             isCommaClicked = 0;
+            clearActiveBtn();
         }
     })
 }
@@ -116,6 +116,7 @@ function clearButton() {
         sign = null;
         output.textContent = 0;
         isCommaClicked = 0;
+        clearActiveBtn()
     })
 }
 
@@ -174,8 +175,6 @@ buttons.forEach((button) => {
     buttonData.push(button.dataset.key)
 })
 
-console.log(buttonData)
-
 function clickButton(key) {
     const clickIt = document.querySelector(`[data-key="${key.toLowerCase()}"]`).click();
     return clickIt;
@@ -206,20 +205,15 @@ operators.forEach((button) => {
 });
 
 let activeBtn = null;
-let activeOpr = null;
 
 function keyboardVisual() {
     
     document.addEventListener("keydown", (e) => {
         const keyValue = e.key.toLowerCase();
-        const isOperator = operatorData.includes(keyValue);
 
-        if(buttonData.includes(keyValue) && !isOperator) {
+        if(buttonData.includes(keyValue)) {
             activeBtn = document.querySelector(`[data-key="${keyValue}"]`);
             activeBtn?.classList.add('is-active');
-        } else if (isOperator) {
-            activeOpr = document.querySelector(`[data-key="${keyValue}"]`);
-            activeOpr?.classList.add("is-active");
         } else if (keyValue === "enter") {
             activeBtn = document.querySelector(`[data-key="="]`);
             activeBtn?.classList.add('is-active');
@@ -229,14 +223,55 @@ function keyboardVisual() {
     document.addEventListener("keyup", (e) => {
         activeBtn?.classList.remove("is-active");
     })
-
-    numbers.forEach((number) => {
-        number.addEventListener("click", (e) => {
-            activeOpr?.classList.remove("is-active")
-        })
-    })
 }
 
+// function keyboardVisual() {
+    
+//     document.addEventListener("keydown", (e) => {
+//         const keyValue = e.key.toLowerCase();
+//         const isOperator = operatorData.includes(keyValue);
+
+//         if(buttonData.includes(keyValue) && !isOperator) {
+//             activeBtn = document.querySelector(`[data-key="${keyValue}"]`);
+//             activeBtn?.classList.add('is-active');
+//         } else if (isOperator) {
+//             activeOpr = document.querySelector(`[data-key="${keyValue}"]`);
+//             activeOpr?.classList.add("is-active");
+//         } else if (keyValue === "enter") {
+//             activeBtn = document.querySelector(`[data-key="="]`);
+//             activeBtn?.classList.add('is-active');
+//         }
+//     })
+
+//     document.addEventListener("keyup", (e) => {
+//         activeBtn?.classList.remove("is-active");
+//     })
+
+//     numbers.forEach((number) => {
+//         number.addEventListener("click", (e) => {
+//             activeOpr?.classList.remove("is-active")
+//         })
+//     })
+// }
+
+// Additional Support Function 
+function resetCalculator() {
+    firstNumber = null;
+    secondNumber = null;
+    sign = null;
+    output.textContent = 0;
+    isCommaClicked = 0;
+}
+
+function clearActiveBtn() {
+    document
+    .querySelectorAll(".is-active")
+    .forEach(button => button.classList.remove("is-active"));
+}
+
+function limitDecimals(num) {
+    return Math.round(num * 10**2) / 10**2
+}
 
 displayNumbers();
 operatorButtons();
@@ -250,3 +285,4 @@ keyboardVisual();
 
 //to do: operator -> equal = error
 //to do: equal after result will delete all display
+//to do: limit the display
