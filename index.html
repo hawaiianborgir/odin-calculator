@@ -3,37 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Calculator</title>
     <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <output>0</output>
-
-    <div class="number-container">
-        <button class="number" data-key="1">1</button>
-        <button class="number" data-key="2">2</button>
-        <button class="number" data-key="3">3</button>
-        <button class="number" data-key="4">4</button>
-        <button class="number" data-key="5">5</button>
-        <button class="number" data-key="6">6</button>
-        <button class="number" data-key="7">7</button>
-        <button class="number" data-key="8">8</button>
-        <button class="number" data-key="9">9</button>
-        <button class="comma" data-key=".">.</button>
-        <button class="number" data-key="0">0</button>
+    <div class="top-wrapper">
+        <output>0</output>
     </div>
 
-    <div class="operator-container">
-        <button class="operator" data-key="+">+</button>
-        <button class="operator" data-key="-">-</button>
-        <button class="operator" data-key="*">x</button>
-        <button class="operator" data-key="/">/</button>
+    <div class="mid-wrapper">
+        <div class="number-container">
+            <button class="number" data-key="1">1</button>
+            <button class="number" data-key="2">2</button>
+            <button class="number" data-key="3">3</button>
+            <button class="number" data-key="4">4</button>
+            <button class="number" data-key="5">5</button>
+            <button class="number" data-key="6">6</button>
+            <button class="number" data-key="7">7</button>
+            <button class="number" data-key="8">8</button>
+            <button class="number" data-key="9">9</button>
+            <button class="number" data-key="0">0</button>
+            <button class="comma" data-key=".">.</button>
+            <button class="clear" data-key="c">C</button>
+        </div>
+
+        <div class="operator-container">
+            <button class="operator" data-key="+">+</button>
+            <button class="operator" data-key="-">-</button>
+            <button class="operator" data-key="*">x</button>
+            <button class="operator" data-key="/">/</button>
+        </div>
     </div>
 
-    <div class="support-container">
-        <button class="compute" data-key="=">=</button>
-        <button class="clear" data-key="c">C</button>
-        <button class="backspace" data-key="backspace">backspace</button>
+    <div class="bottom-wrapper">
+        <div class="bottom-left">
+            <button class="compute" data-key="=">=</button>
+        </div>
+        <div class="bottom-right">
+            <button class="backspace" data-key="backspace">⌫</button>
+        </div>
     </div>
 </body>
 </html>
