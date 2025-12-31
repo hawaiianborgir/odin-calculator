@@ -16,15 +16,15 @@ const backspace = document.querySelector(".backspace");
 
 
 function add(a, b) {
-    return limitDecimals(a + b);
+    return a + b;
 }
 
 function subtract(a, b) {
-    return limitDecimals(a - b);
+    return a - b;
 }
 
 function multiply(a, b) {
-    return limitDecimals(a * b);
+    return a * b;
 }
 
 function divide(a, b) {
@@ -104,7 +104,6 @@ function computeButton() {
             newDigit = 1;
             sign = null;
             isCommaClicked = 0;
-            clearActiveBtn();
         }
     })
 }
@@ -281,7 +280,7 @@ consecutiveOperator();
 commaButton();
 backspaceButton();
 keyboardSupport();
-keyboardVisual();
+// keyboardVisual();
 
 //to do: operator -> equal = error
 //to do: equal after result will delete all display
